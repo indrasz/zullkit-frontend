@@ -1,3 +1,24 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+import CategoryCard from './../CategoryCard.vue'
+
+const categories = ref([])
+
+async function getCategoriesData() {
+    try {
+        const response = await axios.get('https://zullkit-backend.buildwithangga.id/api/categories?limit=4')
+        categories.value = response.data.data.data
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+onMounted(() => {
+    getCategoriesData()
+})
+</script>
 
 
 <template>

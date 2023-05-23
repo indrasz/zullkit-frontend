@@ -1,3 +1,25 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+import ItemCard from './../ItemCard.vue'
+
+const items = ref([])
+
+async function getItemsData() {
+    try {
+        const response = await axios.get('https://zullkit-backend.buildwithangga.id/api/products')
+        items.value = response.data.data.data
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+onMounted(() => {
+    getItemsData()
+})
+</script>
+
 <template>
     <div class="container px-4 mx-auto my-16 md:px-12">
         <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">New Items</h2>
